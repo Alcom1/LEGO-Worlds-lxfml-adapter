@@ -70,7 +70,7 @@
                 event.preventDefault();
                 
                 //Files from drop event.
-                var files = event.dataTransfer.files;
+                var files = event.target.files || event.dataTransfer.files;
                 
                 //Reader
                 var reader = new FileReader();
@@ -80,6 +80,7 @@
                 {
                     //XMLHttpRequest of first file.
                     var xhr = new XMLHttpRequest();
+                    xhr.overrideMimeType("text/xml");   //Force the silly thing to read as XML in Firefox. LXFML files don't have a standard header.
                     xhr.onload = function()
                     {
                         var lxfml = xhr.responseXML;    //lxfml file being read.
